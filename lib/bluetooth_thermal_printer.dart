@@ -14,7 +14,7 @@ class BluetoothThermalPrinter {
 
   /// Get list of all paired bluetooth devices
   static Future<List?> get getBluetooths async {
-    List? items = new List();
+    List? items = [];
     try {
       final List? result = await _channel.invokeMethod('bluetothLinked');
       items = result;
@@ -40,7 +40,8 @@ class BluetoothThermalPrinter {
   static Future<String?> connect(String mac) async {
     String? result = "false";
     try {
-      result = await (_channel.invokeMethod('connectPrinter', mac) as FutureOr<String>);
+      result = await (_channel.invokeMethod('connectPrinter', mac)
+          as FutureOr<String>);
     } on PlatformException catch (e) {
       print("Failed to connect: '${e.message}'.");
     }
